@@ -6,6 +6,8 @@ Stay tuned for updates!
 
 This repo includes a number of changes from NVIDIA's repo, Tacotron 2 (without wavenet). Our Grapheme-to-Phoneme solution relies on the eng_to_ipa module with an epitran fallback for non-dictionary words. Epitran requires the FLITE module to function, due to English's poor graphic-phonetic correspondance. Please note that this will likely cause installation difficulties on windows systems.
 
+IPA Preprocessing: This repo contains an optional grapheme-to-phoneme conversion script for improved model stability and generalization. To use it, set ipa_preprocessing = True in hparams.py.
+
 Installing epitran and FLITE:
 https://github.com/dmort27/epitran
 
