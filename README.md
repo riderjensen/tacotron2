@@ -2,6 +2,15 @@
 
 Stay tuned for updates!
 
+# Differences from NVIDIA's standard Tacotron 2 Repo
+
+This repo includes a number of changes from NVIDIA's repo, Tacotron 2 (without wavenet). Our Grapheme-to-Phoneme solution relies on the eng_to_ipa module with an epitran fallback for non-dictionary words. Epitran requires the FLITE module to function, due to English's poor graphic-phonetic correspondance. Please note that this will likely cause installation difficulties on windows systems.
+
+Installing epitran and FLITE:
+https://github.com/dmort27/epitran
+
+# -------------------------------
+
 To do:
 
 Figure out the best way to integrate dataset WAV cleaner functions
@@ -9,13 +18,6 @@ Figure out the best way to integrate dataset WAV cleaner functions
     Command-line preprocessing tools?
 
 Integrate Noice autotranscription tools
-
-# Differences from NVIDIA's standard Tacotron 2 Repo
-
-This repo includes a number of changes from NVIDIA's repo, Tacotron 2 (without wavenet). Our Grapheme-to-Phoneme solution relies on the eng_to_ipa module with an epitran fallback for non-dictionary words. Epitran requires the FLITE module to function, due to English's poor graphic-phonetic correspondance. Please note that this will likely cause installation difficulties on windows systems.
-
-Installing epitran and FLITE:
-https://github.com/dmort27/epitran
 
 # Tacotron 2 (without wavenet)
 
