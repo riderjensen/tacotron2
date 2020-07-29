@@ -2,8 +2,9 @@
 
 Stay tuned for updates!
 
+
+
 To do:
-Integrate functions for IPA and ARPABET preprocessing
 
 Figure out the best way to integrate dataset WAV cleaner functions
     Standalone package?
