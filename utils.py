@@ -1,7 +1,9 @@
 import numpy as np
 from scipy.io.wavfile import read
 import torch
-
+import eng_to_ipa as ipa
+import re
+import epitran
 
 def get_mask_from_lengths(lengths):
     max_len = torch.max(lengths).item()
@@ -27,3 +29,11 @@ def to_gpu(x):
     if torch.cuda.is_available():
         x = x.cuda(non_blocking=True)
     return torch.autograd.Variable(x)
+
+def convert_to_ipa(texts):
+    epi = epitran.Epitran('eng-Latn')
+    for text_mel_pair in texts:
+        text_mel_pair[1] = ipa.convert(text_mel_pair[1])
+        foreign_words = re.findall(r"[^ ]{0,}\*", text_mel_pair[1])
+        for word in foreign_words:
+            text_mel_pair[1] = text_mel_pair[1].replace(word, epi.transliterate(word[0:len(word)-1]))
