@@ -1,3 +1,16 @@
+# Tacotron 2 Fork for the Audio DeepFakes discord channel.
+
+Stay tuned for updates!
+
+To do:
+Integrate functions for IPA and ARPABET preprocessing
+
+Figure out the best way to integrate dataset WAV cleaner functions
+    Standalone package?
+    Command-line preprocessing tools?
+
+Integrate Noice autotranscription tools
+
 # Tacotron 2 (without wavenet)
 
 PyTorch implementation of [Natural TTS Synthesis By Conditioning
