@@ -16,8 +16,20 @@ class TextMelLoader(torch.utils.data.Dataset):
     """
     def __init__(self, audiopaths_and_text, hparams):
         self.audiopaths_and_text = load_filepaths_and_text(audiopaths_and_text)
+        
+        if hparams.use_cmudict:
+            cmudict_path = 'cmudict-0.7b'
+            if not os.path.isfile(cmudict_path):
+                raise Exception('If use_cmudict=True, you must download ' +
+                    'http://svn.code.sf.net/p/cmusphinx/code/trunk/cmudict/cmudict-0.7b to %s'  % cmudict_path)
+            self._cmudict = cmudict.CMUDict(cmudict_path, keep_ambiguous=False)
+            log('Loaded CMUDict with %d unambiguous entries' % len(self._cmudict))
+        else:
+            self._cmudict = None   
+            
         if hparams.ipa_preprocessing:
             convert_to_ipa(self.audiopaths_and_text)
+        
         self.text_cleaners = hparams.text_cleaners
         self.max_wav_value = hparams.max_wav_value
         self.sampling_rate = hparams.sampling_rate
