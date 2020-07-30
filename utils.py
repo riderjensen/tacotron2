@@ -5,6 +5,7 @@ import eng_to_ipa as ipa
 import re
 import epitran
 from text.cleaners import english_cleaners
+import cmudict
 
 def get_mask_from_lengths(lengths):
     max_len = torch.max(lengths).item()
@@ -38,3 +39,10 @@ def convert_to_ipa(texts):
         foreign_words = re.findall(r"[^ ]{0,}\*", text_mel_pair[1])
         for word in foreign_words:
             text_mel_pair[1] = text_mel_pair[1].replace(word, epi.transliterate(word[0:len(word)-1]))
+
+def process_arpabet(text):
+    text = ' '.join([arpabet_word(word) for word in text.split(' ')])
+    
+def arpabet_word(self, word):
+    pron = cmudict.lookup(word)
+    return '{%s}' % pron[0] if pron is not None else word
