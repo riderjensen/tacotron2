@@ -8,6 +8,8 @@ This repo includes a number of changes from NVIDIA's repo, Tacotron 2 (without w
 
 IPA Preprocessing: This repo contains an optional grapheme-to-phoneme conversion script for improved model stability and generalization. To use it, set ipa_preprocessing = True in hparams.py.
 
+This model no longer uses english_cleaners during the training loop.
+
 Installing epitran and FLITE:
 https://github.com/dmort27/epitran
 
