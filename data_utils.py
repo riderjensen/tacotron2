@@ -4,8 +4,8 @@ import torch
 import torch.utils.data
 
 import layers
-from utils import load_wav_to_torch, load_filepaths_and_text, convert_to_ipa
-from text import text_to_sequence
+from utils import load_wav_to_torch, load_filepaths_and_text, convert_to_ipa, process_arpabet, arpabet_word
+from text import text_to_sequence, cmudict
 
 
 class TextMelLoader(torch.utils.data.Dataset):
@@ -24,11 +24,13 @@ class TextMelLoader(torch.utils.data.Dataset):
                     'http://svn.code.sf.net/p/cmusphinx/code/trunk/cmudict/cmudict-0.7b to %s'  % cmudict_path)
             self._cmudict = cmudict.CMUDict(cmudict_path, keep_ambiguous=False)
             log('Loaded CMUDict with %d unambiguous entries' % len(self._cmudict))
-        else:
-            self._cmudict = None   
+            process_arpabet(self.audiopaths_and_text)
             
-        if hparams.ipa_preprocessing:
+        else if hparams.ipa_preprocessing:
             convert_to_ipa(self.audiopaths_and_text)
+            
+        else if:
+            self._cmudict = None
         
         self.text_cleaners = hparams.text_cleaners
         self.max_wav_value = hparams.max_wav_value
