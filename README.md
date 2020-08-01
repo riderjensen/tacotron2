@@ -13,15 +13,17 @@ This model no longer uses english_cleaners during the training loop.
 Installing epitran and FLITE:
 https://github.com/dmort27/epitran
 
-# -------------------------------
-
-To do:
+# To do:
 
 Figure out the best way to integrate dataset WAV cleaner functions
     Standalone package?
     Command-line preprocessing tools?
 
 Integrate Noice autotranscription tools
+
+Preprocess WAVs to .npy for training
+
+# -------------------------------
 
 # Tacotron 2 (without wavenet)
 
