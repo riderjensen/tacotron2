@@ -2,7 +2,6 @@
 import re
 from text import cleaners
 from text.symbols import symbols
-import hparams
 
 
 # Mappings from symbol to numeric ID and vice versa:
