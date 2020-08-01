@@ -2,6 +2,7 @@
 import re
 from text import cleaners
 from text.symbols import symbols
+import hparams
 
 
 # Mappings from symbol to numeric ID and vice versa:
@@ -54,11 +55,14 @@ def sequence_to_text(sequence):
 
 
 def _clean_text(text, cleaner_names):
-  for name in cleaner_names:
-    cleaner = getattr(cleaners, name)
-    if not cleaner:
-      raise Exception('Unknown cleaner: %s' % name)
-    text = cleaner(text)
+  if cleaner_names is None:
+    return text
+  else:
+    for name in cleaner_names:
+      cleaner = getattr(cleaners, name)
+      if not cleaner:
+        raise Exception('Unknown cleaner: %s' % name)
+      text = cleaner(text)
   return text
 
 
