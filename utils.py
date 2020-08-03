@@ -32,6 +32,7 @@ def to_gpu(x):
     return torch.autograd.Variable(x)
 
 def convert_to_ipa(texts):
+    print("Converting training files to IPA notation...")
     epi = epitran.Epitran('eng-Latn')
     for text_mel_pair in texts:
         text_mel_pair[1] = ipa.convert(english_cleaners(text_mel_pair[1]))
