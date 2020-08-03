@@ -23,6 +23,8 @@ Integrate Noice autotranscription tools
 
 Preprocess WAVs to .npy for training
 
+Add TQDM progress bar to preprocessing function
+
 # -------------------------------
 
 # Tacotron 2 (without wavenet)
