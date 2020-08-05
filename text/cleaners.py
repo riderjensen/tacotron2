@@ -15,6 +15,7 @@ hyperparameter. Some cleaners are English-specific. You'll typically want to use
 import re
 from unidecode import unidecode
 from .numbers import normalize_numbers
+import arpa
 
 
 # Regular expression matching whitespace:
@@ -87,4 +88,16 @@ def english_cleaners(text):
   text = expand_numbers(text)
   text = expand_abbreviations(text)
   text = collapse_whitespace(text)
+  return text
+
+def english_cleaners_arpabet(text):
+  '''Pipeline for English text, including number and abbreviation expansion. Outputs arpabet.'''
+  arpa = arpa("cmudict-0.7b")
+  text = convert_to_ascii(text)
+  text = lowercase(text)
+  text = expand_numbers(text)
+  text = expand_abbreviations(text)
+  text = collapse_whitespace(text)
+  text = get_arpa(text)
+  text = convert_to_ascii(text)
   return text

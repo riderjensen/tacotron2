@@ -17,9 +17,11 @@ class TextMelLoader(torch.utils.data.Dataset):
     def __init__(self, audiopaths_and_text, hparams):
         self.audiopaths_and_text = load_filepaths_and_text(audiopaths_and_text)
         self.text_cleaners = hparams.text_cleaners
-        if hparams.ipa_preprocessing:
+        if hparams.preprocessing == ipa:
             convert_to_ipa(self.audiopaths_and_text)
             self.text_cleaners = None
+        else if hparams.preprocessing == arpabet:
+            self.text_cleaners = ['english_cleaners_arpabet']
         self.max_wav_value = hparams.max_wav_value
         self.sampling_rate = hparams.sampling_rate
         self.load_mel_from_disk = hparams.load_mel_from_disk
