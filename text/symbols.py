@@ -8,7 +8,7 @@ from text import cmudict
 
 _pad        = '_'
 _punctuation = '!\'(),.:;? '
-_special = '-ˈˈˈˈˌˌˌˌˌˌˌˌˌ'
+_special = '-'
 
 _letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzəeɪɑæəɔaʊaɪʧðɛərhɪʤŋoʊɔɪʃθʊuʒijɹɡʌ'
 
