@@ -46,7 +46,7 @@ def convert_to_arpa(texts):
     print("Converting training files to arpabet notation...")
     for text_mel_pair in texts:
         text_mel_pair[1] = make_arpabet(text_mel_pair[1])
-    print("Sample Arpabet Sentence: " + texts[0])
+    print("Sample Arpabet Sentence: " + str(text_mel_pair[1]))
 
 def make_arpabet(text):
   # g2p functions
