@@ -25,10 +25,11 @@ def create_hparams(hparams_string=None, verbose=False):
         # Data Parameters             #
         ################################
         load_mel_from_disk=False,
-        training_files='filelists/ljs_audio_text_train_filelist.txt',
-        validation_files='filelists/ljs_audio_text_val_filelist.txt',
+        training_files='../Datasets/saltzvoice/saltztrain.txt',
+        validation_files='../Datasets/saltzvoice/saltzval.txt',
         text_cleaners=['english_cleaners'],
-        preprocessing=arpabet, # ipa, arpabet, None
+        preprocessing='arpabet', # 'ipa', 'arpabet', None
+        cmudict_path = "text/cmudict-0.7b",
 
         ################################
         # Audio Parameters             #
