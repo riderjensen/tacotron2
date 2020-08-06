@@ -6,6 +6,7 @@ import re
 import epitran
 from unidecode import unidecode
 from text.cleaners import english_cleaners
+from g2p_en import G2p
 
 def get_mask_from_lengths(lengths):
     max_len = torch.max(lengths).item()
@@ -44,40 +45,34 @@ def convert_to_ipa(texts):
 def convert_to_arpa(texts):
     print("Converting training files to arpabet notation...")
     for text_mel_pair in texts:
-        text_mel_pair[1] = arpa_convert(english_cleaners(text_mel_pair[1]), "text/cmudict-0.7b")
+        text_mel_pair[1] = make_arpabet(text_mel_pair[1])
     print("Sample Arpabet Sentence: " + texts[0])
 
+def make_arpabet(text):
+  # g2p functions
+  g2p = G2p()
 
-# Arpabet Utils
-
-def load_arpadict(cmudict_path):
-    # load dictionary as lookup table
-    arpadict = {unidecode(line.split()[0]): unidecode(' '.join(line.split()[1:]).strip()) for line in open(cmudict_path, 'r', encoding="latin-1")}
-    return arpadict
-
-def get_arpa(text, punc, arpadict):
-    """Convert block of text into ARPAbet."""
-    out = []
-    for word in text.split(" "):
-        end_chars = ''; start_chars = ''
-        while any(elem in word for elem in punc) and len(word) > 1:
-            if word[-1] in punc:
-                end_chars = word[-1] + end_chars
-                word = word[:-1]
-            elif word[0] in punc:
-                start_chars = start_chars + word[0]
-                word = word[1:]
-            else:
-                break
-        try:
-            word = "{" + str(arpadict[word.upper()]) + "}"
-        except KeyError:
-            pass
-        out.append((start_chars + (word or '') + end_chars).rstrip())
-    return ' '.join(out)
-
-def arpa_convert(text, cmudict_path):
-  punc = "!?,.;:␤#-_'\"()[]\n"
-  arpadict = load_arpadict(cmudict_path)
-  text = get_arpa(text, punc, arpadict)
+  # Define punctuation, prevent punctuation curlies, and make replacement dictionary to fix spacing
+  punc = "!?,.;:␤#-_'\"()[]\n,."
+  punc = list(punc)
+  punc_key = list(punc)
+  punc_alt = [" " + item for item in punc]
+  punc_dict = {}
+  for key in punc_alt:
+    for value in punc_key:
+      punc_dict[key] = value
+      punc_key.remove(value)
+      break
+  
+  # Text processing
+  text = " ".join(g2p(english_cleaners(text))).split("  ")
+  outlist = []
+  for item in text:
+    item = item.strip()
+    if item not in punc:
+      item =  "{" + item + "}"
+    outlist.append(item)
+  text =" ".join(outlist)
+  for key, replacement in punc_dict.items():
+    text = text.replace(key, replacement)
   return text
