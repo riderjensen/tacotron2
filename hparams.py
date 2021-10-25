@@ -10,7 +10,7 @@ def create_hparams(hparams_string=None, verbose=False):
         # Experiment Parameters        #
         ################################
         epochs=500,
-        iters_per_checkpoint=1000,
+        iters_per_checkpoint=500,
         seed=1234,
         dynamic_loss_scaling=True,
         fp16_run=False,
@@ -25,8 +25,8 @@ def create_hparams(hparams_string=None, verbose=False):
         # Data Parameters             #
         ################################
         load_mel_from_disk=False,
-        training_files='../Datasets/saltzvoice/saltztrain.txt',
-        validation_files='../Datasets/saltzvoice/saltzval.txt',
+        training_files='./filelists/train.txt',
+        validation_files='./filelists/val.txt',
         text_cleaners=['english_cleaners'],
         preprocessing='arpabet', # 'ipa', 'arpabet', None
         cmudict_path = "text/cmudict-0.7b",
@@ -83,7 +83,7 @@ def create_hparams(hparams_string=None, verbose=False):
         learning_rate=1e-3,
         weight_decay=1e-6,
         grad_clip_thresh=1.0,
-        batch_size=64,
+        batch_size=16,
         mask_padding=True  # set model's padded outputs to padded values
     )
 
