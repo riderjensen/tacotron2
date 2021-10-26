@@ -1,5 +1,5 @@
 matplotlib==3.3.4
-tensorflow==2.6.0
+tensorflow==1.15.3
 numpy~=1.19.1
 inflect==0.3.1
 librosa==0.6.0
@@ -11,3 +11,4 @@ eng_to_ipa==0.0.2
 g2p-en==2.1.0
 numba==0.44.0
 gdown
+llvmlite==0.32.1
