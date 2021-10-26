@@ -10,3 +10,4 @@ torch
 eng_to_ipa==0.0.2
 g2p-en==2.1.0
 numba==0.44.0
+gdown
