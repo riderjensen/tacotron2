@@ -28,6 +28,7 @@ def create_hparams(hparams_string=None, verbose=False):
         training_files='./filelists/train.txt',
         validation_files='./filelists/val.txt',
         text_cleaners=['english_cleaners'],
+        preprocessing=None, # 'ipa', 'arpabet', None
         cmudict_path = "text/cmudict-0.7b",
 
         ################################
