@@ -112,6 +112,15 @@ def load_checkpoint(checkpoint_path, model, optimizer):
 def save_checkpoint(model, optimizer, learning_rate, iteration, filepath):
     print("Saving model and optimizer state at iteration {} to {}".format(
         iteration, filepath))
+    # set previous checkpoints to zero size to not run into the google not being able to save
+    basepath = 'outdir'
+    entries = os.listdir(basepath)
+    for entry in entries:
+        if os.path.isfile(os.path.join(basepath, entry)):
+            print("Reducing size and moving to trash for {}".format(entry))
+            open(os.path.join(basepath, entry), 'w').close()
+            os.remove(os.path.join(basepath, entry))
+    # save the new checkpoint
     torch.save({'iteration': iteration,
                 'state_dict': model.state_dict(),
                 'optimizer': optimizer.state_dict(),
